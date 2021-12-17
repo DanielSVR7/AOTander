@@ -10,6 +10,7 @@ namespace AOTander.ViewModels
     {
         public DatabaseEntities db = new DatabaseEntities();
         public ObservableCollection<Shops> Shops { get; }
+        public ObservableCollection<Shops> Employees { get; }
         public MainWindowViewModel()
         {
             var l = new List<Shops>();
@@ -19,10 +20,14 @@ namespace AOTander.ViewModels
                 {
                     Id = item.Id,
                     Address = item.Address,
-                    DirectorID = item.DirectorID
+                    DirectorID = item.DirectorID,
+                    Employees = (from e in db.Employees where e.ShopID == item.Id select e).ToList()
                 });
             }
             Shops = new ObservableCollection<Shops>(l);
         }
+
+        private Shops _SelectedShop;
+        public Shops SelectedShop { get => _SelectedShop; set => Set(ref _SelectedShop, value); }
     }
 }

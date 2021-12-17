@@ -24,10 +24,12 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Магазины" Grid.Column="0">
-                <ListBox ItemsSource="{Binding Shops}" DisplayMemberPath="Address"/>
+                <ListBox ItemsSource="{Binding Shops}" 
+                         DisplayMemberPath="Address" 
+                         SelectedItem="{Binding SelectedShop}"/>
             </GroupBox>
-            <GroupBox Header="Выбранный магазин" Grid.Column="1">
-                <DataGrid>
+            <GroupBox Header="{Binding SelectedShop.Address, StringFormat='Сотрудники магазина, расположенного по адресу: {0}', FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  Grid.Column="1">
+                <DataGrid ItemsSource="{Binding SelectedShop.Employees}">
                     
                 </DataGrid>
             </GroupBox>
