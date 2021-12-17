@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AOTander", "AOTander\AOTander.csproj", "{C7B3CC03-402E-44D8-84A2-1D53D425BBF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C7B3CC03-402E-44D8-84A2-1D53D425BBF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7B3CC03-402E-44D8-84A2-1D53D425BBF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7B3CC03-402E-44D8-84A2-1D53D425BBF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7B3CC03-402E-44D8-84A2-1D53D425BBF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A62ADB02-72CD-48CD-BE45-07F26A24004B}
+	EndGlobalSection
+EndGlobal
