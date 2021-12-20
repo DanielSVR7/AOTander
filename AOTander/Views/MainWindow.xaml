@@ -44,7 +44,7 @@
                         <DataGridTemplateColumn Header="Дата рождения">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="model:Employees">
-                                    <TextBlock Text="{Binding Birthday}"/>
+                                    <TextBlock Text="{Binding Birthday, StringFormat=dd.MM.yyyy}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                             <DataGridTemplateColumn.CellEditingTemplate>
@@ -55,12 +55,17 @@
                         </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Должность">
                             <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate DataType="vm:MainWindowViewModel">
-                                    <ComboBox ItemsSource="{Binding DataContext.Positions, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                              DisplayMemberPath="Position"/>
-
+                                <DataTemplate DataType="model:Employees">
+                                    <TextBlock Text="{Binding Positions.Position}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate DataType="model:Employees" >
+                                    <ComboBox ItemsSource="{Binding DataContext.Positions, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                              DisplayMemberPath="Position"
+                                              SelectedItem="{Binding Positions}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Отработано часов" Binding="{Binding HoursWorked}"/>
                     </DataGrid.Columns>

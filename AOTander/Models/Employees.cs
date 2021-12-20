@@ -11,12 +11,13 @@ namespace AOTander.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Collections.ObjectModel;
+
     public partial class Employees
     {
         public Employees()
         {
-            this.Shops1 = new HashSet<Shops>();
+            this.Shops1 = new ObservableCollection<Shops>();
         }
     
         public int Id { get; set; }
