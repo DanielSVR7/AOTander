@@ -11,20 +11,22 @@ namespace AOTander.ViewModels
         public DatabaseEntities db = new DatabaseEntities();
         public ObservableCollection<Shops> Shops { get; }
         public ObservableCollection<Shops> Employees { get; }
+        public ObservableCollection<Positions> Positions { get; }
         public MainWindowViewModel()
         {
-            var l = new List<Shops>();
-            foreach (var item in db.Shops)
-            {
-                l.Add(new Shops
-                {
-                    Id = item.Id,
-                    Address = item.Address,
-                    DirectorID = item.DirectorID,
-                    Employees = (from e in db.Employees where e.ShopID == item.Id select e).ToList()
-                });
-            }
-            Shops = new ObservableCollection<Shops>(l);
+            //var _shops = new List<Shops>();
+            //foreach (var item in db.Shops)
+            //{
+            //    _shops.Add(new Shops
+            //    {
+            //        Id = item.Id,
+            //        Address = item.Address,
+            //        DirectorID = item.DirectorID,
+            //        Employees = (from e in db.Employees where e.ShopID == item.Id select e).ToList()
+            //    });
+            //}
+            Shops = new ObservableCollection<Shops>(db.Shops.ToList());
+            Positions = new ObservableCollection<Positions>(db.Positions.ToList());
         }
 
         private Shops _SelectedShop;

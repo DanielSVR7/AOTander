@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:AOTander.ViewModels"
+        xmlns:models="clr-namespace:AOTander.Models"
         xmlns:local="clr-namespace:AOTander.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -16,7 +17,7 @@
             <MenuItem Header="О программе"/>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            <TextBlock Text="{Binding Shops}"/>
+            <ComboBox ItemsSource="{Binding Positions}" DisplayMemberPath="Position"/>
         </StatusBar>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -29,8 +30,28 @@
                          SelectedItem="{Binding SelectedShop}"/>
             </GroupBox>
             <GroupBox Header="{Binding SelectedShop.Address, StringFormat='Сотрудники магазина, расположенного по адресу: {0}', FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  Grid.Column="1">
-                <DataGrid ItemsSource="{Binding SelectedShop.Employees}">
-                    
+                <DataGrid ItemsSource="{Binding SelectedShop.Employees}" 
+                          IsReadOnly="False" 
+                          AutoGenerateColumns="False"
+                          GridLinesVisibility="Vertical"
+                          VerticalGridLinesBrush="DarkGray"
+                          AlternatingRowBackground="LightGray">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
+                        <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                        <DataGridTemplateColumn Header="Должность">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="vm:MainWindowViewModel">
+                                    <ComboBox ItemsSource="{Binding DataContext.Positions, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                              DisplayMemberPath="Position"/>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Отработано часов" Binding="{Binding HoursWorked}"/>
+                    </DataGrid.Columns>
                 </DataGrid>
             </GroupBox>
         </Grid>

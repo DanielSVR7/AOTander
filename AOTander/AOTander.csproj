@@ -84,31 +84,31 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Employees.cs">
-      <DependentUpon>EmployeesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EmployeesModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmployeesModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EmployeesModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmployeesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EmployeesModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmployeesModel.edmx</DependentUpon>
+      <DependentUpon>TanderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Positions.cs">
-      <DependentUpon>EmployeesModel.tt</DependentUpon>
+      <DependentUpon>TanderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shops.cs">
-      <DependentUpon>EmployeesModel.tt</DependentUpon>
+      <DependentUpon>TanderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TanderModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TanderModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TanderModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TanderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TanderModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TanderModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
-      <DependentUpon>EmployeesModel.tt</DependentUpon>
+      <DependentUpon>TanderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -134,12 +134,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\EmployeesModel.edmx">
+    <EntityDeploy Include="Models\TanderModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>EmployeesModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>TanderModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\EmployeesModel.edmx.diagram">
-      <DependentUpon>EmployeesModel.edmx</DependentUpon>
+    <None Include="Models\TanderModel.edmx.diagram">
+      <DependentUpon>TanderModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -171,15 +171,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
-    <Content Include="Models\EmployeesModel.Context.tt">
+    <Content Include="Models\TanderModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EmployeesModel.edmx</DependentUpon>
-      <LastGenOutput>EmployeesModel.Context.cs</LastGenOutput>
+      <DependentUpon>TanderModel.edmx</DependentUpon>
+      <LastGenOutput>TanderModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EmployeesModel.tt">
+    <Content Include="Models\TanderModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>EmployeesModel.edmx</DependentUpon>
-      <LastGenOutput>EmployeesModel.cs</LastGenOutput>
+      <DependentUpon>TanderModel.edmx</DependentUpon>
+      <LastGenOutput>TanderModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
