@@ -25,11 +25,23 @@
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Магазины" Grid.Column="0">
-                <ListBox ItemsSource="{Binding Shops}" 
-                         DisplayMemberPath="Address" 
-                         SelectedItem="{Binding SelectedShop}"/>
+                <DockPanel>
+                    <UniformGrid DockPanel.Dock="Bottom" 
+                                 Rows="1"
+                                 Margin="0,6">
+                        <Button Content="Сохранить" 
+                                Margin="0,0,3,0"
+                                Command="{Binding CreateShopCommand}"/>
+                        <Button Content="Удалить" 
+                                Margin="3,0,0,0"
+                                Command="{Binding DeleteShopCommand}" CommandParameter="{Binding SelectedShop}"/>
+                    </UniformGrid>
+                    <ListBox ItemsSource="{Binding Shops}" 
+                             DisplayMemberPath="Address" 
+                             SelectedItem="{Binding SelectedShop}"/>
+                </DockPanel>
             </GroupBox>
-            <GroupBox Header="{Binding SelectedShop.Address, StringFormat='Сотрудники магазина, расположенного по адресу: {0}', FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  Grid.Column="1">
+            <GroupBox Header="{Binding SelectedShop.Address,  FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  Grid.Column="1">
                 <DataGrid ItemsSource="{Binding SelectedShop.Employees}" 
                           CanUserAddRows="False"
                           AutoGenerateColumns="False"
