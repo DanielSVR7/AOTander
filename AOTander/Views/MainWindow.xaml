@@ -31,7 +31,7 @@
             </GroupBox>
             <GroupBox Header="{Binding SelectedShop.Address, StringFormat='Сотрудники магазина, расположенного по адресу: {0}', FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  Grid.Column="1">
                 <DataGrid ItemsSource="{Binding SelectedShop.Employees}" 
-                          IsReadOnly="False" 
+                          CanUserAddRows="False"
                           AutoGenerateColumns="False"
                           GridLinesVisibility="Vertical"
                           VerticalGridLinesBrush="DarkGray"
@@ -41,6 +41,18 @@
                         <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
                         <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}"/>
                         <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                        <DataGridTemplateColumn Header="Дата рождения">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate DataType="model:Employees">
+                                    <TextBlock Text="{Binding Birthday}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            <DataGridTemplateColumn.CellEditingTemplate>
+                                <DataTemplate DataType="model:Employees">
+                                    <DatePicker SelectedDate="{Binding Birthday}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellEditingTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Должность">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate DataType="vm:MainWindowViewModel">

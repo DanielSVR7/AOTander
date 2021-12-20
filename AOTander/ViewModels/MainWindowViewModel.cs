@@ -14,18 +14,8 @@ namespace AOTander.ViewModels
         public ObservableCollection<Positions> Positions { get; }
         public MainWindowViewModel()
         {
-            //var _shops = new List<Shops>();
-            //foreach (var item in db.Shops)
-            //{
-            //    _shops.Add(new Shops
-            //    {
-            //        Id = item.Id,
-            //        Address = item.Address,
-            //        DirectorID = item.DirectorID,
-            //        Employees = (from e in db.Employees where e.ShopID == item.Id select e).ToList()
-            //    });
-            //}
-            Shops = new ObservableCollection<Shops>(db.Shops.ToList());
+            var _shops = db.Shops.ToList();
+            Shops = new ObservableCollection<Shops>(_shops);
             Positions = new ObservableCollection<Positions>(db.Positions.ToList());
         }
 
