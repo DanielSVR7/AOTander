@@ -1,0 +1,29 @@
+﻿<Window x:Class="AOTander.Views.AddShopWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AOTander.Views"
+        mc:Ignorable="d"
+        Title="AddShopWindow" Height="200" Width="350"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        ResizeMode="NoResize" 
+        ShowInTaskbar="False" 
+        WindowStartupLocation="CenterOwner" 
+        WindowStyle="ToolWindow">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" 
+                   Text="Редактирование магазина"
+                   Margin="10"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="14"/>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" 
+                     HorizontalAlignment="Right" 
+                     Margin="0,0,0,10">
+            <Button Content="OK" Margin="10,0" Padding="35,5"/>
+            <Button Content="Cancel" Margin="10,0"/>
+        </UniformGrid>
+        <TextBox Width="200" Height="20" Text="{Binding Address}"/>
+    </DockPanel>
+</Window>

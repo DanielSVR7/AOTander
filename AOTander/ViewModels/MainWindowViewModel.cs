@@ -29,7 +29,6 @@ namespace AOTander.ViewModels
             };
             db.Shops.Add(new_shop);
             Shops.Add(new_shop);
-
             db.SaveChanges();
         }
         #endregion

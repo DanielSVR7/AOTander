@@ -15,11 +15,17 @@ using System.Windows.Shapes;
 namespace AOTander.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddWindow.xaml
+    /// Логика взаимодействия для AddShopWindow.xaml
     /// </summary>
-    public partial class AddWindow : Window
+    public partial class AddShopWindow : Window
     {
-        public AddWindow()
+        public static DependencyProperty AddressProperty = DependencyProperty.Register(
+            nameof(Address),
+            typeof(string),
+            typeof(MainWindow),
+            new PropertyMetadata(null));
+        public string Address { get; set; }
+        public AddShopWindow()
         {
             InitializeComponent();
         }
