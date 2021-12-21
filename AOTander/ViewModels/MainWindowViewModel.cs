@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
+using AOTander.Views;
 
 namespace AOTander.ViewModels
 {
@@ -20,13 +21,16 @@ namespace AOTander.ViewModels
         private bool CanCreateShopCommandExecute(object p) => true;
         private void OnCreateShopCommandExecuted(object p)
         {
-            var new_shop = new Shops
+
+            Shops new_shop = new Shops
             {
                 Address = "Магазин " + (Shops.Count + 1),
-                Id = Shops.Last().Id + 1,
                 DirectorID = 13
             };
+            db.Shops.Add(new_shop);
             Shops.Add(new_shop);
+
+            db.SaveChanges();
         }
         #endregion
 
@@ -38,6 +42,8 @@ namespace AOTander.ViewModels
             if (!(p is Shops shop)) return;
             int shop_index = Shops.IndexOf(shop);
             Shops.Remove(shop);
+            db.Shops.Remove(shop);
+            db.SaveChanges();
             if (Shops.Count == 0)
                 return;
             if (shop_index > 0)
