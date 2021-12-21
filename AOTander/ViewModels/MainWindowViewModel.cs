@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using AOTander.Views;
+using System.Windows;
 
 namespace AOTander.ViewModels
 {
@@ -21,15 +22,31 @@ namespace AOTander.ViewModels
         private bool CanCreateShopCommandExecute(object p) => true;
         private void OnCreateShopCommandExecuted(object p)
         {
-
-            Shops new_shop = new Shops
+            var shop = (Shops)p;
+            var dlg = new EditShopWindow{Address = shop.Address};
+            if (dlg.ShowDialog() == true)
             {
-                Address = "Магазин " + (Shops.Count + 1),
-                DirectorID = 13
-            };
-            db.Shops.Add(new_shop);
-            Shops.Add(new_shop);
-            db.SaveChanges();
+                db.Shops.Add(shop);
+                Shops.Add(shop);
+                db.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region EditShopCommand
+        public ICommand EditShopCommand { get; }
+        private bool CanEditShopCommandExecute(object p) => p is Shops shop && Shops.Contains(shop);
+        private void OnEditShopCommandExecuted(object p)
+        {
+            var shop = (Shops)p;
+            var dlg = new EditShopWindow { Address = shop.Address };
+            dlg.Owner = Application.Current.MainWindow;
+            if (dlg.ShowDialog() == true)
+            {
+                Shops.ElementAt(Shops.IndexOf(shop)).Address = dlg.Address;
+                shop.Address = dlg.Address;
+                db.SaveChanges();
+            }
         }
         #endregion
 
@@ -56,10 +73,11 @@ namespace AOTander.ViewModels
         {
             #region Команды
 
-            CreateShopCommand = new LambdaCommand(OnCreateShopCommandExecuted, CanCreateShopCommandExecute);
+            EditShopCommand = new LambdaCommand(OnEditShopCommandExecuted, CanEditShopCommandExecute);
             DeleteShopCommand = new LambdaCommand(OnDeleteShopCommandExecuted, CanDeleteShopCommandExecute);
 
             #endregion Команды
+
             Shops = new ObservableCollection<Shops>(db.Shops.ToList());
             Positions = new ObservableCollection<Positions>(db.Positions.ToList());
         }

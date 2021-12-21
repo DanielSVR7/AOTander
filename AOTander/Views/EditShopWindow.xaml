@@ -1,0 +1,40 @@
+﻿<Window x:Class="AOTander.Views.EditShopWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l="clr-namespace:AOTander.Views" xmlns:commands="clr-namespace:AOTander.Infrastructure.Commands"
+        mc:Ignorable="d"
+        Title="EditShopWindow" Height="200" Width="350"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        ResizeMode="NoResize" 
+        ShowInTaskbar="False" 
+        WindowStartupLocation="CenterOwner" 
+        WindowStyle="ToolWindow">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top" 
+                   Text="Редактирование магазина"
+                   Margin="10"
+                   HorizontalAlignment="Center"
+                   FontWeight="Bold"
+                   FontSize="14"/>
+        <UniformGrid DockPanel.Dock="Bottom" Rows="1" 
+                     HorizontalAlignment="Right" 
+                     Margin="0,0,0,10">
+            <Button Content="OK" IsDefault="True" 
+                    Margin="10,0" Padding="35,5"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=l:EditShopWindow}}">
+                <Button.Command>
+                    <commands:CloseDialogCommand DialogResult="True"/>
+                </Button.Command>
+            </Button>
+            <Button Content="Cancel" IsCancel="True" Margin="10,0"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=l:EditShopWindow}}">
+                <Button.Command>
+                    <commands:CloseDialogCommand DialogResult="False"/>
+                </Button.Command>
+            </Button>
+        </UniformGrid>
+        <TextBox Width="300" Height="20" Text="{Binding Address}"/>
+    </DockPanel>
+</Window>
