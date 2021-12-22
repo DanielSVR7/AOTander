@@ -7,6 +7,7 @@
         xmlns:cmd="clr-namespace:AOTander.Infrastructure.Commands"
         xmlns:models="clr-namespace:AOTander.Models"
         xmlns:local="clr-namespace:AOTander.Views"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="АО &quot;Тандер&quot;" Height="450" Width="1000">
     <Window.DataContext>
@@ -15,11 +16,22 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Сохранить" Command="{Binding SaveEmployeesCommand}"/>
-                <MenuItem Header="Удалить" />
+                <MenuItem Header="Сохранить" Command="{Binding SaveEmployeesCommand}">
+                    <MenuItem.Icon>
+                        <fa:ImageAwesome Icon="Solid_Save" Width="13" HorizontalAlignment="Left"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Удалить" >
+                    <MenuItem.Icon>
+                        <fa:ImageAwesome Icon="Solid_UserMinus" Width="18"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="О программе">
                 <MenuItem Header="Выход">
+                    <MenuItem.Icon>
+                        <fa:ImageAwesome Icon="Solid_Times" Width="10"/>
+                    </MenuItem.Icon>
                     <MenuItem.Command>
                         <cmd:CloseApplicationCommand/>
                     </MenuItem.Command>
@@ -39,15 +51,27 @@
                     <UniformGrid DockPanel.Dock="Bottom" 
                                  Rows="1"
                                  Margin="0,6">
-                        <Button Content="Добавить"
-                                Margin="0,0,3,0"
-                                Command="{Binding AddShopCommand}" CommandParameter="{Binding SelectedShop}"/>
-                        <Button Content="Редактировать" 
-                                Margin="3,0,3,0"
-                                Command="{Binding EditShopCommand}" CommandParameter="{Binding SelectedShop}"/>
-                        <Button Content="Удалить" 
-                                Margin="3,0,0,0"
-                                Command="{Binding DeleteShopCommand}" CommandParameter="{Binding SelectedShop}"/>
+                        <Button Margin="0,0,3,0"
+                                Command="{Binding AddShopCommand}" CommandParameter="{Binding SelectedShop}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Solid_Plus" Width="10" Margin="0,0,5,0"/>
+                                <TextBlock Text="Добавить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="3,0,3,0"
+                                Command="{Binding EditShopCommand}" CommandParameter="{Binding SelectedShop}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Solid_Edit" Width="15" Margin="0,0,5,0"/>
+                                <TextBlock Text="Изменить"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Margin="3,0,0,0"
+                                Command="{Binding DeleteShopCommand}" CommandParameter="{Binding SelectedShop}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="Solid_StoreSlash" Width="15" Margin="0,0,5,0"/>
+                                <TextBlock Text="Удалить"/>
+                            </StackPanel>
+                        </Button>
                     </UniformGrid>
                     <ListBox ItemsSource="{Binding Shops}" 
                              DisplayMemberPath="Address" 
@@ -101,8 +125,12 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <UniformGrid Columns="1" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" >
-                        <Button Margin="0,20" Content="save" Command="{Binding SaveEmployeesCommand}" Padding="10,12"/>
-                        <Button Margin="0,20" Content="del"/>
+                        <Button Margin="0,20" Command="{Binding SaveEmployeesCommand}" Padding="10,12">
+                            <fa:ImageAwesome Icon="Solid_Save" Width="20"/>
+                        </Button>
+                        <Button Margin="0,20">
+                            <fa:ImageAwesome Icon="Solid_UserMinus" Width="20"/>
+                        </Button>
                     </UniformGrid>
                 </Grid>
             </GroupBox>
