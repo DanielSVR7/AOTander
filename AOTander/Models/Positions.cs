@@ -21,7 +21,6 @@ namespace AOTander.Models
     
         public int Id { get; set; }
         public string Position { get; set; }
-        public Nullable<int> HourlyRate { get; set; }
     
         public virtual ICollection<Employees> Employees { get; set; }
     }

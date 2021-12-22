@@ -9,12 +9,12 @@
         xmlns:local="clr-namespace:AOTander.Views"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
-        Title="АО &quot;Тандер&quot;" Height="450" Width="1000">
+        Title="АО &quot;Тандер&quot;" Height="500" Width="1200">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" FontSize="12">
             <MenuItem Header="Файл">
                 <MenuItem Header="Сохранить" Command="{Binding SaveEmployeesCommand}">
                     <MenuItem.Icon>
@@ -57,7 +57,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2.5*"/>
             </Grid.ColumnDefinitions>
-            <GroupBox Header="Магазины" Grid.Column="0">
+            <GroupBox Header="Магазины" Grid.Column="0" FontSize="14">
                 <DockPanel>
                     <UniformGrid DockPanel.Dock="Bottom" 
                                  Rows="1"
@@ -86,10 +86,12 @@
                     </UniformGrid>
                     <ListBox ItemsSource="{Binding Shops}" 
                              DisplayMemberPath="Address" 
-                             SelectedItem="{Binding SelectedShop}"/>
+                             SelectedItem="{Binding SelectedShop}"
+                             FontSize="14"/>
                 </DockPanel>
             </GroupBox>
-            <GroupBox Header="{Binding SelectedShop.Address,  FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  Grid.Column="1">
+            <GroupBox Header="{Binding SelectedShop.Address,  FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  
+                      Grid.Column="1" FontSize="14">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"/>
@@ -103,7 +105,8 @@
                               AlternatingRowBackground="LightGray" 
                               Margin="10,0,0,10" Grid.Column="0"
                               SelectionMode="Single"
-                              SelectedItem="{Binding SelectedEmployee}">
+                              SelectedItem="{Binding SelectedEmployee}"
+                              FontSize="14">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
                             <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>

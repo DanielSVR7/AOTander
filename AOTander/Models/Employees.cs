@@ -14,11 +14,6 @@ namespace AOTander.Models
     
     public partial class Employees
     {
-        public Employees()
-        {
-            this.Shops1 = new HashSet<Shops>();
-        }
-    
         public int Id { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
@@ -31,6 +26,5 @@ namespace AOTander.Models
     
         public virtual Shops Shops { get; set; }
         public virtual Positions Positions { get; set; }
-        public virtual ICollection<Shops> Shops1 { get; set; }
     }
 }

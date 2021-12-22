@@ -22,9 +22,7 @@ namespace AOTander.Models
     
         public int Id { get; set; }
         public string Address { get; set; }
-        public Nullable<int> DirectorID { get; set; }
     
         public virtual ICollection<Employees> Employees { get; set; }
-        public virtual Employees Employees1 { get; set; }
     }
 }
