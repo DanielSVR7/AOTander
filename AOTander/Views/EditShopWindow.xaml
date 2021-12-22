@@ -3,9 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:l="clr-namespace:AOTander.Views" xmlns:commands="clr-namespace:AOTander.Infrastructure.Commands"
+        xmlns:l="clr-namespace:AOTander.Views" 
+        xmlns:vm="clr-namespace:AOTander.ViewModels"
+        xmlns:commands="clr-namespace:AOTander.Infrastructure.Commands"
         mc:Ignorable="d"
-        Title="EditShopWindow" Height="200" Width="350"
+        Title="АО &quot;Тандер&quot;" Height="200" Width="350"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" 
         ResizeMode="NoResize" 
         ShowInTaskbar="False" 
@@ -13,7 +15,7 @@
         WindowStyle="ToolWindow">
     <DockPanel>
         <TextBlock DockPanel.Dock="Top" 
-                   Text="Редактирование магазина"
+                   Text="Редактор магазинов"
                    Margin="10"
                    HorizontalAlignment="Center"
                    FontWeight="Bold"

@@ -1,7 +1,6 @@
 ﻿using AOTander.Models;
 using AOTander.ViewModels.Base;
 using AOTander.Infrastructure.Commands;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
@@ -13,19 +12,24 @@ namespace AOTander.ViewModels
     class MainWindowViewModel : ViewModel
     {
         public DatabaseEntities db = new DatabaseEntities();
-        public ObservableCollection<Shops> Shops { get; }
-        public ObservableCollection<Shops> Employees { get; }
+        public ObservableCollection<Shops> _Shops;
+        public ObservableCollection<Shops> Shops 
+        {
+            get => _Shops;
+            set => Set(ref _Shops, value);
+        }
         public ObservableCollection<Positions> Positions { get; }
 
-        #region CreateShopCommand
-        public ICommand CreateShopCommand { get; }
-        private bool CanCreateShopCommandExecute(object p) => true;
-        private void OnCreateShopCommandExecuted(object p)
+        #region AddShopCommand
+        public ICommand AddShopCommand { get; }
+        private bool CanAddShopCommandExecute(object p) => true;
+        private void OnAddShopCommandExecuted(object p)
         {
-            var shop = (Shops)p;
-            var dlg = new EditShopWindow{Address = shop.Address};
+            var shop = new Shops();
+            var dlg = new EditShopWindow();
             if (dlg.ShowDialog() == true)
             {
+                shop.Address = dlg.Address;
                 db.Shops.Add(shop);
                 Shops.Add(shop);
                 db.SaveChanges();
@@ -67,14 +71,28 @@ namespace AOTander.ViewModels
             else
                 SelectedShop = Shops[shop_index];
         }
-            #endregion
+        #endregion
+
+        #region SaveEmployeesCommand
+        public ICommand SaveEmployeesCommand { get; }
+        private bool CanSaveEmployeesCommandExecute(object p) => true;
+        private void OnSaveEmployeesCommandExecuted(object p)
+        {
+            db.SaveChanges();
+            MessageBox.Show(
+                "Внесенные изменения успешно сохранены", "Успешное сохранение",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        #endregion
 
         public MainWindowViewModel()
         {
-            #region Команды
 
+            #region Команды
+            AddShopCommand = new LambdaCommand(OnAddShopCommandExecuted, CanAddShopCommandExecute);
             EditShopCommand = new LambdaCommand(OnEditShopCommandExecuted, CanEditShopCommandExecute);
             DeleteShopCommand = new LambdaCommand(OnDeleteShopCommandExecuted, CanDeleteShopCommandExecute);
+            SaveEmployeesCommand = new LambdaCommand(OnSaveEmployeesCommandExecuted, CanSaveEmployeesCommandExecute);
 
             #endregion Команды
 
@@ -83,10 +101,10 @@ namespace AOTander.ViewModels
         }
 
         private Shops _SelectedShop;
-        public Shops SelectedShop 
+        public Shops SelectedShop
         { 
-            get => _SelectedShop; 
-            set => Set(ref _SelectedShop, value); 
+            get => _SelectedShop;
+            set => Set(ref _SelectedShop, value);
         }
     }
 }
