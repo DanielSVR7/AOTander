@@ -39,7 +39,7 @@
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            <ComboBox ItemsSource="{Binding Positions}" DisplayMemberPath="Position"/>
+            <TextBlock Text="{Binding SelectedEmployee.Name}"/>
         </StatusBar>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -89,7 +89,10 @@
                               AutoGenerateColumns="False"
                               GridLinesVisibility="Vertical"
                               VerticalGridLinesBrush="DarkGray"
-                              AlternatingRowBackground="LightGray" Margin="10,0,0,10" Grid.Column="0">
+                              AlternatingRowBackground="LightGray" 
+                              Margin="10,0,0,10" Grid.Column="0"
+                              SelectionMode="Single"
+                              SelectedItem="{Binding SelectedEmployee}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
                             <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
@@ -128,7 +131,9 @@
                         <Button Margin="0,20" Command="{Binding SaveEmployeesCommand}" Padding="10,12">
                             <fa:ImageAwesome Icon="Solid_Save" Width="20"/>
                         </Button>
-                        <Button Margin="0,20">
+                        <Button Margin="0,20" 
+                                Command="{Binding DeleteEmployeeCommand}" 
+                                CommandParameter="{Binding SelectedEmployee}">
                             <fa:ImageAwesome Icon="Solid_UserMinus" Width="20"/>
                         </Button>
                     </UniformGrid>

@@ -12,13 +12,24 @@ namespace AOTander.ViewModels
     class MainWindowViewModel : ViewModel
     {
         public DatabaseEntities db = new DatabaseEntities();
+
+        public ObservableCollection<Employees> _Employees;
+        public ObservableCollection<Employees> Employees
+        {
+            get => _Employees;
+            set => Set(ref _Employees, value);
+        }
+
         public ObservableCollection<Shops> _Shops;
         public ObservableCollection<Shops> Shops 
         {
             get => _Shops;
             set => Set(ref _Shops, value);
         }
+
         public ObservableCollection<Positions> Positions { get; }
+
+        #region Команды
 
         #region AddShopCommand
         public ICommand AddShopCommand { get; }
@@ -50,26 +61,33 @@ namespace AOTander.ViewModels
                 Shops.ElementAt(Shops.IndexOf(shop)).Address = dlg.Address;
                 shop.Address = dlg.Address;
                 db.SaveChanges();
+                Shops = new ObservableCollection<Shops>(db.Shops.ToList());
             }
         }
         #endregion
 
         #region DeleteShopCommand
         public ICommand DeleteShopCommand { get; }
-        private bool CanDeleteShopCommandExecute(object p) => p is Shops shop && Shops.Contains(shop);
+        private bool CanDeleteShopCommandExecute(object p) => p is Shops shop && Shops.Contains(shop) && shop.Employees.Count == 0;
         private void OnDeleteShopCommandExecuted(object p)
         {
             if (!(p is Shops shop)) return;
-            int shop_index = Shops.IndexOf(shop);
-            Shops.Remove(shop);
-            db.Shops.Remove(shop);
-            db.SaveChanges();
-            if (Shops.Count == 0)
-                return;
-            if (shop_index > 0)
-                SelectedShop = Shops[shop_index - 1];
-            else
-                SelectedShop = Shops[shop_index];
+            MessageBoxResult result = MessageBox.Show(
+                "Вы действительно хотите удалить магазин из списка?", "Удаление магазина",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                int shop_index = Shops.IndexOf(shop);
+                Shops.Remove(shop);
+                db.Shops.Remove(shop);
+                db.SaveChanges();
+                if (Shops.Count == 0)
+                    return;
+                if (shop_index > 0)
+                    SelectedShop = Shops[shop_index - 1];
+                else
+                    SelectedShop = Shops[shop_index];
+            }
         }
         #endregion
 
@@ -79,12 +97,40 @@ namespace AOTander.ViewModels
         private void OnSaveEmployeesCommandExecuted(object p)
         {
             db.SaveChanges();
+            Employees = new ObservableCollection<Employees>(db.Employees.ToList());
             MessageBox.Show(
                 "Внесенные изменения успешно сохранены", "Успешное сохранение",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
         #endregion
 
+        #region DeleteEmployeeCommand
+        public ICommand DeleteEmployeeCommand { get; }
+        private bool CanDeleteEmployeeCommandExecute(object p) => p is Employees employee && Employees.Contains(employee);
+        private void OnDeleteEmployeeCommandExecuted(object p)
+        {
+            if (!(p is Employees employee)) return;
+            MessageBoxResult result = MessageBox.Show(
+                "Вы действительно хотите удалить сотрудника из списка?", "Удаление сотрудника",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                int emp_index = Employees.IndexOf(employee);
+                db.Employees.Remove(employee);
+                Employees.Remove(employee);
+                db.SaveChanges();
+                if (SelectedShop.Employees.Count == 0)
+                    return;
+                if (emp_index > 0)
+                    SelectedEmployee = Employees[emp_index - 1];
+                else
+                    SelectedEmployee = Employees[emp_index];
+            }
+
+        }
+        #endregion
+
+        #endregion
         public MainWindowViewModel()
         {
 
@@ -93,11 +139,13 @@ namespace AOTander.ViewModels
             EditShopCommand = new LambdaCommand(OnEditShopCommandExecuted, CanEditShopCommandExecute);
             DeleteShopCommand = new LambdaCommand(OnDeleteShopCommandExecuted, CanDeleteShopCommandExecute);
             SaveEmployeesCommand = new LambdaCommand(OnSaveEmployeesCommandExecuted, CanSaveEmployeesCommandExecute);
+            DeleteEmployeeCommand = new LambdaCommand(OnDeleteEmployeeCommandExecuted, CanDeleteEmployeeCommandExecute);
 
             #endregion Команды
 
             Shops = new ObservableCollection<Shops>(db.Shops.ToList());
             Positions = new ObservableCollection<Positions>(db.Positions.ToList());
+            Employees = new ObservableCollection<Employees>(db.Employees.ToList());
         }
 
         private Shops _SelectedShop;
@@ -105,6 +153,12 @@ namespace AOTander.ViewModels
         { 
             get => _SelectedShop;
             set => Set(ref _SelectedShop, value);
+        }
+        private Employees _SelectedEmployee;
+        public Employees SelectedEmployee
+        {
+            get => _SelectedEmployee;
+            set => Set(ref _SelectedEmployee, value);
         }
     }
 }
