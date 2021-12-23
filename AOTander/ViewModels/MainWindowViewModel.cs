@@ -11,26 +11,26 @@ namespace AOTander.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        public TanderDatabaseEntities db = new TanderDatabaseEntities();
+        public TanderDatabaseEntities db = new TanderDatabaseEntities();    
         public ObservableCollection<Employees> _Employees;
-        public ObservableCollection<Employees> Employees
+        public ObservableCollection<Employees> Employees    //Свойство коллекции сотрудников
         {
             get => _Employees;
             set => Set(ref _Employees, value);
         }
 
-        public ObservableCollection<Shops> _Shops;
+        public ObservableCollection<Shops> _Shops;          //Свойство коллекции магазинов
         public ObservableCollection<Shops> Shops 
         {
             get => _Shops;
             set => Set(ref _Shops, value);
         }
 
-        public ObservableCollection<Positions> Positions { get; }
+        public ObservableCollection<Positions> Positions { get; }   //Свойство коллекции должностей
 
         #region Команды
 
-        #region AddShopCommand
+        #region AddShopCommand - Команда добавления магазина
         public ICommand AddShopCommand { get; }
         private bool CanAddShopCommandExecute(object p) => true;
         private void OnAddShopCommandExecuted(object p)
@@ -47,7 +47,7 @@ namespace AOTander.ViewModels
         }
         #endregion
 
-        #region EditShopCommand
+        #region EditShopCommand - Команда редактирования магазина
         public ICommand EditShopCommand { get; }
         private bool CanEditShopCommandExecute(object p) => p is Shops shop && Shops.Contains(shop);
         private void OnEditShopCommandExecuted(object p)
@@ -65,9 +65,14 @@ namespace AOTander.ViewModels
         }
         #endregion
 
-        #region DeleteShopCommand
+        #region DeleteShopCommand - Команда удаления магазина
         public ICommand DeleteShopCommand { get; }
-        private bool CanDeleteShopCommandExecute(object p) => p is Shops shop && Shops.Contains(shop) && shop.Employees.Count == 0;
+        private bool CanDeleteShopCommandExecute(object p)
+        {
+            if (p is Shops shop && Shops.Contains(shop) && shop.Employees.Count == 0)
+                return true;
+            else return false;
+        }
         private void OnDeleteShopCommandExecuted(object p)
         {
             if (!(p is Shops shop)) return;
@@ -90,7 +95,7 @@ namespace AOTander.ViewModels
         }
         #endregion
 
-        #region SaveEmployeesCommand
+        #region SaveEmployeesCommand - Команда сохранения сотрудников
         public ICommand SaveEmployeesCommand { get; }
         private bool CanSaveEmployeesCommandExecute(object p) => true;
         private void OnSaveEmployeesCommandExecuted(object p)
@@ -103,9 +108,15 @@ namespace AOTander.ViewModels
         }
         #endregion
 
-        #region DeleteEmployeeCommand
+        #region DeleteEmployeeCommand - Команда удаления сотрудника
         public ICommand DeleteEmployeeCommand { get; }
-        private bool CanDeleteEmployeeCommandExecute(object p) => p is Employees employee && Employees.Contains(employee);
+        private bool CanDeleteEmployeeCommandExecute(object p)
+        {
+            if (p is Employees employee && Employees.Contains(employee))
+                return true;
+            else return false;
+            
+        }
         private void OnDeleteEmployeeCommandExecuted(object p)
         {
             if (!(p is Employees employee)) return;
@@ -125,7 +136,6 @@ namespace AOTander.ViewModels
                 else
                     SelectedEmployee = Employees[emp_index];
             }
-
         }
         #endregion
 
@@ -133,14 +143,15 @@ namespace AOTander.ViewModels
         public MainWindowViewModel()
         {
 
-            #region Команды
+            #region Объявление команд
+
             AddShopCommand = new LambdaCommand(OnAddShopCommandExecuted, CanAddShopCommandExecute);
             EditShopCommand = new LambdaCommand(OnEditShopCommandExecuted, CanEditShopCommandExecute);
             DeleteShopCommand = new LambdaCommand(OnDeleteShopCommandExecuted, CanDeleteShopCommandExecute);
             SaveEmployeesCommand = new LambdaCommand(OnSaveEmployeesCommandExecuted, CanSaveEmployeesCommandExecute);
             DeleteEmployeeCommand = new LambdaCommand(OnDeleteEmployeeCommandExecuted, CanDeleteEmployeeCommandExecute);
 
-            #endregion Команды
+            #endregion 
 
             Shops = new ObservableCollection<Shops>(db.Shops.ToList());
             Positions = new ObservableCollection<Positions>(db.Positions.ToList());
@@ -148,13 +159,13 @@ namespace AOTander.ViewModels
         }
 
         private Shops _SelectedShop;
-        public Shops SelectedShop
+        public Shops SelectedShop                   //Свойство выбранного магазина
         { 
             get => _SelectedShop;
             set => Set(ref _SelectedShop, value);
         }
         private Employees _SelectedEmployee;
-        public Employees SelectedEmployee
+        public Employees SelectedEmployee           //Свойство выбранного сотрудника
         {
             get => _SelectedEmployee;
             set => Set(ref _SelectedEmployee, value);
