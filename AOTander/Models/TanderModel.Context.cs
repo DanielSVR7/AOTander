@@ -13,10 +13,10 @@ namespace AOTander.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DatabaseEntities : DbContext
+    public partial class TanderDatabaseEntities : DbContext
     {
-        public DatabaseEntities()
-            : base("name=DatabaseEntities")
+        public TanderDatabaseEntities()
+            : base("name=TanderDatabaseEntities")
         {
         }
     

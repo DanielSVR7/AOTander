@@ -11,8 +11,7 @@ namespace AOTander.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        public DatabaseEntities db = new DatabaseEntities();
-
+        public TanderDatabaseEntities db = new TanderDatabaseEntities();
         public ObservableCollection<Employees> _Employees;
         public ObservableCollection<Employees> Employees
         {

@@ -190,7 +190,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database.mdf</DependentUpon>
     </Content>
-    <Resource Include="ico.ico" />
     <Content Include="Models\TanderModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TanderModel.edmx</DependentUpon>
@@ -201,6 +200,7 @@
       <DependentUpon>TanderModel.edmx</DependentUpon>
       <LastGenOutput>TanderModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="ico.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
