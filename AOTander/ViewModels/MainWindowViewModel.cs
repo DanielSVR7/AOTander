@@ -115,7 +115,7 @@ namespace AOTander.ViewModels
             if (p is Employees employee && Employees.Contains(employee))
                 return true;
             else return false;
-            
+           
         }
         private void OnDeleteEmployeeCommandExecuted(object p)
         {

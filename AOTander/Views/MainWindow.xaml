@@ -9,7 +9,9 @@
         xmlns:local="clr-namespace:AOTander.Views"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
-        Title="АО &quot;Тандер&quot;" Height="500" Width="1200">
+        Title="АО &quot;Тандер&quot;" 
+        Height="500" Width="1200"
+        MinHeight="300" MinWidth="900">
 
     <Window.Resources>
         <Style TargetType="Button">
