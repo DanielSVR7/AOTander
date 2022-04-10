@@ -28,6 +28,7 @@ namespace AOTander.Models
         public DbSet<Employees> Employees { get; set; }
         public DbSet<Positions> Positions { get; set; }
         public DbSet<Shops> Shops { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Users> Users { get; set; }
     }
 }

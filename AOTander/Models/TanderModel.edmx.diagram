@@ -4,11 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7890db9ec51f420cba8ee668974ec812" Name="Diagram1">
-        <EntityTypeShape EntityType="TanderDatabaseModel.Employees" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="TanderDatabaseModel.Positions" Width="1.5" PointX="0.875" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="TanderDatabaseModel.Shops" Width="1.5" PointX="0.875" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="TanderDatabaseModel.Users" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="8de4771bbbc84edeb9a7705e1c57f88d" Name="Diagram1">
+        <EntityTypeShape EntityType="TanderDatabaseModel.Employees" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TanderDatabaseModel.Positions" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TanderDatabaseModel.Shops" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TanderDatabaseModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TanderDatabaseModel.Users" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <AssociationConnector Association="TanderDatabaseModel.EmployeesFK" ManuallyRouted="false" />
         <AssociationConnector Association="TanderDatabaseModel.EmployeesFK2" ManuallyRouted="false" />
       </Diagram>
