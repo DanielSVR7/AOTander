@@ -2,9 +2,6 @@
 
 namespace AOTander.Views
 {
-    /// <summary>
-    /// Логика взаимодействия для AddShopWindow.xaml
-    /// </summary>
     public partial class EditShopWindow
     {
         public static DependencyProperty AddressProperty = DependencyProperty.Register(
