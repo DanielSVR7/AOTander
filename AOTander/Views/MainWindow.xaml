@@ -10,8 +10,8 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="АО &quot;Тандер&quot;" 
-        Height="500" Width="1200"
-        MinHeight="300" MinWidth="900">
+        Height="600" Width="1200"
+        MinHeight="400" MinWidth="900">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -97,23 +97,58 @@
             <GroupBox Header="{Binding SelectedShop.Address,  FallbackValue='Сотрудники', TargetNullValue='Магазин не выбран'}"  
                       Grid.Column="1" FontSize="14">
                 <Grid>
+                    <Grid.Resources>
+                        <CollectionViewSource x:Key="EmployeesCollection"
+                                              Source="{Binding SelectedShop.Employees}"
+                                              Filter="EmployeesCollection_Filter"/>
+                    </Grid.Resources>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="12*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid ItemsSource="{Binding SelectedShop.Employees}"
+                    <UniformGrid Columns="4" Margin="0,0,0,10" Grid.Row="0" Grid.ColumnSpan="2">
+                        <StackPanel>
+                            <TextBlock Text="Поиск сотрудника" Margin="5"/>
+                            <TextBox Name="EmployeesFilterTextBox" 
+                                         Margin="10,0" 
+                                         TextChanged="EmployeesFilterTextBox_TextChanged"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Text="Должность" Margin="5"/>
+                            <StackPanel Orientation="Horizontal">
+                                <ComboBox x:Name="PosComboBox" ItemsSource="{Binding Positions}" 
+                                          Margin="10,0" Width="120" 
+                                          SelectionChanged="PosComboBox_SelectionChanged"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Button Content="Сброс" Margin="60,20" Click="ResetButton_Click"/>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Найдено записей: "/>
+                                <TextBlock Text="{Binding SelectedShop.Employees.Count}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Из них отображаются: "/>
+                                <TextBlock x:Name="CountTextBox"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </UniformGrid>
+                    <DataGrid ItemsSource="{Binding Source={StaticResource EmployeesCollection}}"
                               CanUserAddRows="True"
                               AutoGenerateColumns="False"
                               GridLinesVisibility="All"
                               VerticalGridLinesBrush="DarkGray"
-                              AlternatingRowBackground="#FFF0F0F0" 
+                              Background="White"
                               HorizontalGridLinesBrush="LightGray"
                               Margin="10,0,0,10" Grid.Column="0"
                               SelectionMode="Single"
                               SelectedItem="{Binding SelectedEmployee}"
                               FontSize="14"
-                              Background="White"
-                              BorderThickness="0">
+                              BorderThickness="0" Grid.Row="1">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding Surname}"/>
                             <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
@@ -148,7 +183,7 @@
                             <DataGridTextColumn Header="Часы" Binding="{Binding HoursWorked}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                    <UniformGrid Columns="1" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" >
+                    <UniformGrid Columns="1" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Top" Margin="0,66,0,0" Grid.Row="1" >
                         <Button Margin="0,20" Command="{Binding SaveEmployeesCommand}" Padding="10,12">
                             <fa:ImageAwesome Icon="Solid_Save" Width="20"/>
                         </Button>

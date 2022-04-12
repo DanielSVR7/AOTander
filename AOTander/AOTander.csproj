@@ -68,6 +68,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
@@ -96,6 +97,7 @@
     <Compile Include="Infrastructure\Commands\CloseApplicationCommand.cs" />
     <Compile Include="Infrastructure\Commands\CloseWindowCommand.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
+    <Compile Include="Views\Converter.cs" />
     <Compile Include="Models\Employees.cs">
       <DependentUpon>TanderModel.tt</DependentUpon>
     </Compile>
@@ -132,6 +134,7 @@
     <Compile Include="Views\AuthorizationWindow.xaml.cs">
       <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Captcha.cs" />
     <Compile Include="Views\EditShopWindow.xaml.cs">
       <DependentUpon>EditShopWindow.xaml</DependentUpon>
     </Compile>
