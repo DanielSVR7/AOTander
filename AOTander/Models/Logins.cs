@@ -12,17 +12,13 @@ namespace AOTander.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Logins
     {
-        public Users()
-        {
-            this.Logins = new HashSet<Logins>();
-        }
-    
         public int Id { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public int UserID { get; set; }
+        public System.DateTime LoginTime { get; set; }
+        public System.DateTime WorkingHours { get; set; }
     
-        public virtual ICollection<Logins> Logins { get; set; }
+        public virtual Users Users { get; set; }
     }
 }

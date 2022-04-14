@@ -97,8 +97,10 @@
     <Compile Include="Infrastructure\Commands\CloseApplicationCommand.cs" />
     <Compile Include="Infrastructure\Commands\CloseWindowCommand.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
-    <Compile Include="Views\Converter.cs" />
     <Compile Include="Models\Employees.cs">
+      <DependentUpon>TanderModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Logins.cs">
       <DependentUpon>TanderModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Positions.cs">
@@ -128,6 +130,7 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>TanderModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\Converter.cs" />
     <Compile Include="ViewModels\AuthorizationWindowViewModel.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -197,10 +200,6 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
   <ItemGroup>
     <Content Include="Models\TanderModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -212,6 +211,11 @@
       <DependentUpon>TanderModel.edmx</DependentUpon>
       <LastGenOutput>TanderModel.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="ico.ico" />
   </ItemGroup>
   <ItemGroup>

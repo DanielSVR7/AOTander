@@ -19,6 +19,15 @@
           <Property Name="PositionID" Type="int" />
           <Property Name="HoursWorked" Type="int" />
         </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="LoginTime" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="WorkingHours" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="Positions">
           <Key>
             <PropertyRef Name="Id" />
@@ -75,8 +84,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Logins_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище TanderDatabaseModelContainer">
           <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Positions" EntityType="Self.Positions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Shops" EntityType="Self.Shops" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -88,6 +110,10 @@
           <AssociationSet Name="EmployeesFK2" Association="Self.EmployeesFK2">
             <End Role="Positions" EntitySet="Positions" />
             <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logins_Users" Association="Self.FK_Logins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logins" EntitySet="Logins" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -110,6 +136,16 @@
           <Property Name="HoursWorked" Type="Int32" />
           <NavigationProperty Name="Shops" Relationship="Self.EmployeesFK" FromRole="Employees" ToRole="Shops" />
           <NavigationProperty Name="Positions" Relationship="Self.EmployeesFK2" FromRole="Employees" ToRole="Positions" />
+        </EntityType>
+        <EntityType Name="Logins">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="LoginTime" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="WorkingHours" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Logins_Users" FromRole="Logins" ToRole="Users" />
         </EntityType>
         <EntityType Name="Positions">
           <Key>
@@ -144,6 +180,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="16" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Logins" Relationship="Self.FK_Logins_Users" FromRole="Users" ToRole="Logins" />
         </EntityType>
         <Association Name="EmployeesFK">
           <End Role="Shops" Type="Self.Shops" Multiplicity="0..1" />
@@ -169,8 +206,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Logins_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Logins" Type="Self.Logins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Logins">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TanderDatabaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Logins" EntityType="Self.Logins" />
           <EntitySet Name="Positions" EntityType="Self.Positions" />
           <EntitySet Name="Shops" EntityType="Self.Shops" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -182,6 +232,10 @@
           <AssociationSet Name="EmployeesFK2" Association="Self.EmployeesFK2">
             <End Role="Positions" EntitySet="Positions" />
             <End Role="Employees" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logins_Users" Association="Self.FK_Logins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Logins" EntitySet="Logins" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -202,6 +256,16 @@
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="PositionID" ColumnName="PositionID" />
                 <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="TanderDatabaseModel.Logins">
+              <MappingFragment StoreEntitySet="Logins">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="LoginTime" ColumnName="LoginTime" />
+                <ScalarProperty Name="WorkingHours" ColumnName="WorkingHours" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
