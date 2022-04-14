@@ -11,17 +11,18 @@ namespace AOTander.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Collections.ObjectModel;
+
     public partial class Shops
     {
         public Shops()
         {
-            this.Employees = new HashSet<Employees>();
+            this.Employees = new ObservableCollection<Employees>();
         }
     
         public int Id { get; set; }
         public string Address { get; set; }
     
-        public virtual ICollection<Employees> Employees { get; set; }
+        public virtual ObservableCollection<Employees> Employees { get; set; }
     }
 }

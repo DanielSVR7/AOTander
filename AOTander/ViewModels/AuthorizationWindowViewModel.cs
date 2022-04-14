@@ -25,6 +25,8 @@ namespace AOTander.ViewModels
         public Captcha Security { get => _Security; set => Set(ref _Security, value); }
         public bool IsSecurityVisible { get => _IsSecurityVisible; set => Set(ref _IsSecurityVisible, value); }
         public string SecurityText { get => _SecurityText; set => Set(ref _SecurityText, value); }
+        public Users AuthorizedUser { get; set; }
+
 
         public AuthorizationWindowViewModel()
         {
@@ -62,7 +64,7 @@ namespace AOTander.ViewModels
                         return;
                     }
                 }    
-                var user = (from log in db.Users where EnteredLogin == log.Login && EnteredPassword == log.Password select log).Single();
+                AuthorizedUser = (from log in db.Users where EnteredLogin == log.Login && EnteredPassword == log.Password select log).Single();
                 LoginAction?.Invoke();
                 Message = "Добро пожаловать!";
                 await Task.Delay(1000);

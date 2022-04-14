@@ -35,25 +35,16 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="О программе">
-                <MenuItem Header="Выход">
-                    <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="Solid_Times" Width="10"/>
-                    </MenuItem.Icon>
-                    <MenuItem.Command>
-                        <cmd:CloseApplicationCommand/>
-                    </MenuItem.Command>
-                </MenuItem>
+            <MenuItem Header="Выйти из аккаунта"> 
+                
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding SelectedEmployee.Surname, FallbackValue=Готов!}" Margin="2,0"/>
-                <TextBlock Text="{Binding SelectedEmployee.Name}" Margin="2,0"/>
-                <TextBlock Text="{Binding SelectedEmployee.Patronymic}" Margin="2,0"/>
-            </StackPanel>
-            <Separator />
-            <TextBlock Text="{Binding SelectedEmployee.Positions.Position, FallbackValue='АО &quot;Тандер&quot;'}" Margin="2,0"/>
+            <TextBlock Text="АО &quot;Тандер&quot;" Margin="2,0"/>
+            <Separator/>
+            <TextBlock Text="{Binding User.Login, FallbackValue=Готов!}" />
+            <Separator/>
+            <TextBlock x:Name="timerTB"/>
         </StatusBar>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -62,6 +53,11 @@
             </Grid.ColumnDefinitions>
             <GroupBox Header="Магазины" Grid.Column="0" FontSize="14">
                 <DockPanel>
+                    <DockPanel.Resources>
+                        <CollectionViewSource x:Key="ShopsCollection"
+                                              Source="{Binding Shops}"
+                                              Filter="ShopsCollection_Filter"/>
+                    </DockPanel.Resources>
                     <UniformGrid DockPanel.Dock="Bottom" 
                                  Rows="1"
                                  Margin="0,6">
@@ -87,7 +83,14 @@
                             </StackPanel>
                         </Button>
                     </UniformGrid>
-                    <ListBox ItemsSource="{Binding Shops}" 
+                    <StackPanel DockPanel.Dock="Top" Margin="0">
+                        <TextBlock Text="Поиск магазина" Margin="5"/>
+                        <StackPanel Orientation="Horizontal" Margin="20,0,20,10" >
+                            <TextBox Name="ShopsFilterTextBox"  TextChanged="ShopsFilterTextBox_TextChanged" Width="180" Height="25" Margin="10,0"/>
+                            <Button Content="Сброс" Width="80" Click="ResetShopsFilterutton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <ListBox ItemsSource="{Binding Source={StaticResource ShopsCollection}}"
                              DisplayMemberPath="Address" 
                              SelectedItem="{Binding SelectedShop}"
                              FontSize="14"
@@ -114,18 +117,21 @@
                         <StackPanel>
                             <TextBlock Text="Поиск сотрудника" Margin="5"/>
                             <TextBox Name="EmployeesFilterTextBox" 
-                                         Margin="10,0" 
-                                         TextChanged="EmployeesFilterTextBox_TextChanged"/>
+                                     Margin="10,0" Height="25" Width="180"
+                                     TextChanged="EmployeesFilterTextBox_TextChanged"/>
                         </StackPanel>
                         <StackPanel>
                             <TextBlock Text="Должность" Margin="5"/>
                             <StackPanel Orientation="Horizontal">
                                 <ComboBox x:Name="PosComboBox" ItemsSource="{Binding Positions}" 
-                                          Margin="10,0" Width="120" 
+                                          Margin="10,0" Width="180" Height="25"
                                           SelectionChanged="PosComboBox_SelectionChanged"/>
                             </StackPanel>
                         </StackPanel>
-                        <Button Content="Сброс" Margin="60,20" Click="ResetButton_Click"/>
+                        <StackPanel>
+                            <TextBlock Margin="5"/>
+                            <Button Content="Сброс" Margin="40,0" Click="ResetEmployeesFilterButton_Click" Height="25"/>
+                        </StackPanel>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Найдено записей: "/>

@@ -1,4 +1,5 @@
-﻿using AOTander.ViewModels;
+﻿using AOTander.Models;
+using AOTander.ViewModels;
 using AOTander.Views;
 using System;
 using System.Windows;
@@ -14,11 +15,14 @@ namespace AOTander.Views
             AuthorizationWindowViewModel vm = new AuthorizationWindowViewModel();
             this.DataContext = vm;
             if (vm.LoginAction == null)
-                vm.LoginAction = new Action(() => Login());
+                vm.LoginAction = new Action(() => Login(vm.AuthorizedUser));
         }
-        private void Login()
+        private void Login(Users user)
         {
             MainWindow m = new MainWindow();
+            MainWindowViewModel vm = new MainWindowViewModel();
+            vm.User = user;
+            m.DataContext = vm;
             m.Show();
             this.Close();
         }

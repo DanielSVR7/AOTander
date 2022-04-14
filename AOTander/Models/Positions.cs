@@ -23,5 +23,9 @@ namespace AOTander.Models
         public string Position { get; set; }
     
         public virtual ICollection<Employees> Employees { get; set; }
+        public override string ToString()
+        {
+            return Position;
+        }
     }
 }

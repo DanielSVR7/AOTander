@@ -1,35 +1,55 @@
 ﻿using AOTander.Models;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Threading;
 
 namespace AOTander.Views
 {
     public partial class MainWindow : Window
     {
+        DateTime WorkTimer;
+        DispatcherTimer timer;
         public MainWindow()
         {
             InitializeComponent();
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 500) };
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            WorkTimer = WorkTimer.AddSeconds(1);
+            timerTB.Text = WorkTimer.ToString("HH:mm:ss");
         }
 
         private void EmployeesFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var text_box = (TextBox)sender;
             var collection = (CollectionViewSource)text_box.FindResource("EmployeesCollection");
-            collection.View.Refresh();
-            CountTextBox.Text = (collection.View.Cast<object>().Count() - 1).ToString();
+            if (collection.Source != null)
+            {
+                collection.View.Refresh();
+                CountTextBox.Text = (collection.View.Cast<object>().Count() - 1).ToString();
+            }
         }
 
         private void PosComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var combo_box = (ComboBox)sender;
             var collection = (CollectionViewSource)combo_box.FindResource("EmployeesCollection");
-            collection.View.Refresh();
-            CountTextBox.Text = (collection.View.Cast<object>().Count() - 1).ToString();
+            if (collection.Source != null)
+            {
+                collection.View.Refresh();
+                CountTextBox.Text = (collection.View.Cast<object>().Count() - 1).ToString();
+            }
         }
 
-        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        private void ResetEmployeesFilterButton_Click(object sender, RoutedEventArgs e)
         {
             EmployeesFilterTextBox.Text = string.Empty;
             PosComboBox.SelectedIndex = -1;
@@ -62,6 +82,27 @@ namespace AOTander.Views
                     return;
             }
             e.Accepted = false;
+        }
+
+        private void ShopsCollection_Filter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Shops shop)) return;
+            var filter_text = ShopsFilterTextBox.Text.ToLower().Trim();
+            if (filter_text.Length == 0) return;
+            if (shop.Address.ToLower().Contains(filter_text)) return;
+            e.Accepted = false;
+        }
+
+        private void ShopsFilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text_box = (TextBox)sender;
+            var collection = (CollectionViewSource)text_box.FindResource("ShopsCollection");
+            collection.View.Refresh();
+        }
+
+        private void ResetShopsFilterutton_Click(object sender, RoutedEventArgs e)
+        {
+            ShopsFilterTextBox.Text = string.Empty;
         }
     }
 }

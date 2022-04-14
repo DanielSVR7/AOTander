@@ -11,15 +11,18 @@ namespace AOTander.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
-        public TanderDatabaseEntities db = new TanderDatabaseEntities();    
-        public ObservableCollection<Employees> _Employees;
+        public TanderDatabaseEntities db = new TanderDatabaseEntities();
+        private Users _User;
+        public Users User { get => _User; set => Set(ref _User, value); }
+
+        private ObservableCollection<Employees> _Employees;
         public ObservableCollection<Employees> Employees    //Свойство коллекции сотрудников
         {
             get => _Employees;
             set => Set(ref _Employees, value);
         }
 
-        public ObservableCollection<Shops> _Shops;          //Свойство коллекции магазинов
+        private ObservableCollection<Shops> _Shops;          //Свойство коллекции магазинов
         public ObservableCollection<Shops> Shops 
         {
             get => _Shops;
