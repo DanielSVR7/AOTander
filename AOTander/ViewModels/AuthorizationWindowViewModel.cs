@@ -77,9 +77,7 @@ namespace AOTander.ViewModels
                 Message = "Логин/пароль не верны";
                 _AttemptsCount++;
                 if (_AttemptsCount >= 2)
-                {
                     ShowCaptcha();
-                }
                 await Task.Delay(1000);
                 Message = string.Empty;
             }

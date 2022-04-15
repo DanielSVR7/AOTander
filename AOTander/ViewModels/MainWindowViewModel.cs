@@ -6,12 +6,17 @@ using System.Linq;
 using System.Windows.Input;
 using AOTander.Views;
 using System.Windows;
+using System;
+using Microsoft.Win32;
 
 namespace AOTander.ViewModels
 {
     class MainWindowViewModel : ViewModel
     {
         public TanderDatabaseEntities db = new TanderDatabaseEntities();
+        private Logins Login { get; set; }
+        private string _TimerText;
+        public string TimerText { get => _TimerText; set => Set(ref _TimerText, value); }
         private Users _User;
         public Users User { get => _User; set => Set(ref _User, value); }
 
@@ -23,7 +28,7 @@ namespace AOTander.ViewModels
         }
 
         private ObservableCollection<Shops> _Shops;          //Свойство коллекции магазинов
-        public ObservableCollection<Shops> Shops 
+        public ObservableCollection<Shops> Shops
         {
             get => _Shops;
             set => Set(ref _Shops, value);
@@ -32,6 +37,43 @@ namespace AOTander.ViewModels
         public ObservableCollection<Positions> Positions { get; }   //Свойство коллекции должностей
 
         #region Команды
+
+        #region LoadImageCommand - Команда загрузки изображения
+        public ICommand LoadImageCommand { get; }
+        private bool CanLoadImageCommandExecute(object p)
+        {
+            if (p is Employees employee && SelectedShop.Employees.Contains(employee))
+                return true;
+            else return false;
+        }
+        private void OnLoadImageCommandExecuted(object p)
+        {
+            if (!(p is Employees employee)) return;
+            OpenFileDialog openDialog = new OpenFileDialog
+            {
+                Filter = "Файлы изображений|*.bmp;*.png;*.jpg"
+            };
+            if (openDialog.ShowDialog() != true)
+                return;
+            string path = openDialog.FileName;
+            employee.PhotoPath = path;
+        }
+        #endregion 
+
+        #region ExitAccountCommand - Команда выхода из аккаунта
+        public ICommand ExitAccountCommand { get; }
+        public Action ExitAccountAction { get; set; }
+        private bool CanExitAccountCommandExecute(object p) => User != null;
+        private void OnExitAccountCommandExecuted(object p)
+        {
+            Login.WorkingHours = DateTime.Parse(TimerText);
+            db.Logins.Add(Login);
+            db.SaveChanges();
+            User = null;
+            ExitAccountAction?.Invoke();   
+        }
+
+        #endregion
 
         #region AddShopCommand - Команда добавления магазина
         public ICommand AddShopCommand { get; }
@@ -118,7 +160,7 @@ namespace AOTander.ViewModels
             if (p is Employees employee && Employees.Contains(employee))
                 return true;
             else return false;
-           
+
         }
         private void OnDeleteEmployeeCommandExecuted(object p)
         {
@@ -145,7 +187,6 @@ namespace AOTander.ViewModels
         #endregion
         public MainWindowViewModel()
         {
-
             #region Объявление команд
 
             AddShopCommand = new LambdaCommand(OnAddShopCommandExecuted, CanAddShopCommandExecute);
@@ -153,6 +194,8 @@ namespace AOTander.ViewModels
             DeleteShopCommand = new LambdaCommand(OnDeleteShopCommandExecuted, CanDeleteShopCommandExecute);
             SaveEmployeesCommand = new LambdaCommand(OnSaveEmployeesCommandExecuted, CanSaveEmployeesCommandExecute);
             DeleteEmployeeCommand = new LambdaCommand(OnDeleteEmployeeCommandExecuted, CanDeleteEmployeeCommandExecute);
+            ExitAccountCommand = new LambdaCommand(OnExitAccountCommandExecuted, CanExitAccountCommandExecute);
+            LoadImageCommand = new LambdaCommand(OnLoadImageCommandExecuted, CanLoadImageCommandExecute);
 
             #endregion 
 
@@ -160,10 +203,24 @@ namespace AOTander.ViewModels
             Positions = new ObservableCollection<Positions>(db.Positions.ToList());
             Employees = new ObservableCollection<Employees>(db.Employees.ToList());
         }
+        public void SetUser(Users user)
+        {
+            User = user;
+            if (User != null)
+            {
+                Login = new Logins
+                {
+                    UserID = User.Id,
+                    LoginTime = DateTime.Now
+                };
+            }
+            else
+                throw new Exception("Ошибка авторизации");
+        }
 
         private Shops _SelectedShop;
         public Shops SelectedShop                   //Свойство выбранного магазина
-        { 
+        {
             get => _SelectedShop;
             set => Set(ref _SelectedShop, value);
         }

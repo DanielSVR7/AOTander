@@ -43,7 +43,7 @@
             <PasswordBox x:Name="PasswordTB"/>
             <Button x:Name="regButton" Content="Регистрация" Margin="80,20,0,0" Width="100" Height="30" 
                 Background="#FF0067B9" Foreground="White" BorderBrush="#FF0067B9" 
-                Click="regButton_Click" FontSize="14"/>
+                Click="RegButton_Click" FontSize="14"/>
         </StackPanel>
     </Grid>
 </Window>

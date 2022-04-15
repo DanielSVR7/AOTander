@@ -141,6 +141,9 @@
     <Compile Include="Views\EditShopWindow.xaml.cs">
       <DependentUpon>EditShopWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\LoginsWindow.xaml.cs">
+      <DependentUpon>LoginsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -191,6 +194,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoginsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,18 +206,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\TanderModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TanderModel.edmx</DependentUpon>
-      <LastGenOutput>TanderModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TanderModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TanderModel.edmx</DependentUpon>
-      <LastGenOutput>TanderModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -229,6 +224,18 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\TanderModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TanderModel.edmx</DependentUpon>
+      <LastGenOutput>TanderModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TanderModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TanderModel.edmx</DependentUpon>
+      <LastGenOutput>TanderModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

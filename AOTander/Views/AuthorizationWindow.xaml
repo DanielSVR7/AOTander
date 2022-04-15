@@ -52,7 +52,7 @@
     <StackPanel>
         <TextBlock Text="Войдите в аккаунт" FontSize="22" />
         <TextBlock Text="или" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Microsoft JhengHei"/>
-        <TextBlock Text="зарегистрируйтесь" FontSize="14" Style="{StaticResource Link}" />
+        <TextBlock Text="зарегистрируйтесь" FontSize="14" Style="{StaticResource Link}" MouseUp="TextBlock_MouseUp" />
         <Label Content="Введите номер телефона"/>
         <TextBox Text="{Binding EnteredLogin}"/>
         <Label Content="Введите пароль" />

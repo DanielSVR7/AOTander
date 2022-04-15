@@ -7,14 +7,13 @@ namespace AOTander.Views
 {
     public partial class RegistrationWindow : Window
     {
-        TanderDatabaseEntities db;
-        public RegistrationWindow(TanderDatabaseEntities context)
+        readonly TanderDatabaseEntities db = new TanderDatabaseEntities();
+        public RegistrationWindow()
         {
             InitializeComponent();
-            db = context;
         }
 
-        private void regButton_Click(object sender, RoutedEventArgs e)
+        private void RegButton_Click(object sender, RoutedEventArgs e)
         {
             if (FullNameTB.Text == string.Empty || LoginTB.Text == string.Empty || PasswordTB.Password == string.Empty)
                 MessageBox.Show("Заполните необходимые поля", "Обязательные поля не заполнены", MessageBoxButton.OK, MessageBoxImage.Error);

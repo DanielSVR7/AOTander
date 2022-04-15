@@ -18,6 +18,7 @@
           <Property Name="ShopID" Type="int" />
           <Property Name="PositionID" Type="int" />
           <Property Name="HoursWorked" Type="int" />
+          <Property Name="PhotoPath" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Logins">
           <Key>
@@ -134,6 +135,7 @@
           <Property Name="ShopID" Type="Int32" />
           <Property Name="PositionID" Type="Int32" />
           <Property Name="HoursWorked" Type="Int32" />
+          <Property Name="PhotoPath" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Shops" Relationship="Self.EmployeesFK" FromRole="Employees" ToRole="Shops" />
           <NavigationProperty Name="Positions" Relationship="Self.EmployeesFK2" FromRole="Employees" ToRole="Positions" />
         </EntityType>
@@ -256,6 +258,7 @@
                 <ScalarProperty Name="ShopID" ColumnName="ShopID" />
                 <ScalarProperty Name="PositionID" ColumnName="PositionID" />
                 <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

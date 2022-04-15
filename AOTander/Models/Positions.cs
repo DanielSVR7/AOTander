@@ -11,7 +11,7 @@ namespace AOTander.Models
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class Positions
     {
         public Positions()
@@ -23,9 +23,5 @@ namespace AOTander.Models
         public string Position { get; set; }
     
         public virtual ICollection<Employees> Employees { get; set; }
-        public override string ToString()
-        {
-            return Position;
-        }
     }
 }

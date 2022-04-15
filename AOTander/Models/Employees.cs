@@ -23,6 +23,7 @@ namespace AOTander.Models
         public Nullable<int> ShopID { get; set; }
         public Nullable<int> PositionID { get; set; }
         public Nullable<int> HoursWorked { get; set; }
+        public string PhotoPath { get; set; }
     
         public virtual Shops Shops { get; set; }
         public virtual Positions Positions { get; set; }

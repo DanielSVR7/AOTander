@@ -1,4 +1,5 @@
 ﻿using AOTander.Models;
+using AOTander.ViewModels;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,16 +13,27 @@ namespace AOTander.Views
     public partial class MainWindow : Window
     {
         DateTime WorkTimer;
-        DispatcherTimer timer;
+        readonly DispatcherTimer timer;
+        readonly MainWindowViewModel vm;
         public MainWindow()
         {
             InitializeComponent();
-            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 0, 0, 500) };
-            timer.Tick += new EventHandler(timer_Tick);
+            vm = new MainWindowViewModel();
+            this.DataContext = vm;
+            if (vm.ExitAccountAction == null)
+                vm.ExitAccountAction = new Action(() => ExitAccount());
+            timer = new DispatcherTimer() { Interval = new TimeSpan(0, 0, 1) };
+            timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void ExitAccount()
+        {
+            AuthorizationWindow w = new AuthorizationWindow();
+            w.Show();
+            this.Close();
+        }
+        private void Timer_Tick(object sender, EventArgs e)
         {
             WorkTimer = WorkTimer.AddSeconds(1);
             timerTB.Text = WorkTimer.ToString("HH:mm:ss");
@@ -59,13 +71,13 @@ namespace AOTander.Views
         {
             if (!(e.Item is Employees employee)) return;
             var filter_text = EmployeesFilterTextBox.Text.ToLower().Trim();
-            if (filter_text.Length == 0 && PosComboBox.SelectedIndex == -1) 
+            if (filter_text.Length == 0 && PosComboBox.SelectedIndex == -1)
                 return;
             if (PosComboBox.SelectedIndex != -1)
             {
-                if (employee.Positions == PosComboBox.SelectedItem) 
+                if (employee.Positions == PosComboBox.SelectedItem)
                     e.Accepted = true;
-                else 
+                else
                     e.Accepted = false;
             }
             if (e.Accepted == true)
@@ -78,7 +90,7 @@ namespace AOTander.Views
                     if (employee.Birthday.ToString().Contains(filter_text)) return;
                     if (employee.Phone.Contains(filter_text)) return;
                 }
-                else 
+                else
                     return;
             }
             e.Accepted = false;
@@ -103,6 +115,18 @@ namespace AOTander.Views
         private void ResetShopsFilterutton_Click(object sender, RoutedEventArgs e)
         {
             ShopsFilterTextBox.Text = string.Empty;
+        }
+
+        private void LoginsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            LoginsWindow w = new LoginsWindow();
+            w.Show();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if(vm.ExitAccountCommand.CanExecute(null))
+                vm.ExitAccountCommand.Execute(null);
         }
     }
 }

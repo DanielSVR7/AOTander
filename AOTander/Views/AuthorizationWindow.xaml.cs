@@ -20,9 +20,7 @@ namespace AOTander.Views
         private void Login(Users user)
         {
             MainWindow m = new MainWindow();
-            MainWindowViewModel vm = new MainWindowViewModel();
-            vm.User = user;
-            m.DataContext = vm;
+            ((MainWindowViewModel)m.DataContext).SetUser(user);
             m.Show();
             this.Close();
         }
@@ -30,6 +28,12 @@ namespace AOTander.Views
         {
             if (this.DataContext != null)
                 ((dynamic)this.DataContext).EnteredPassword = ((PasswordBox)sender).Password;
+        }
+
+        private void TextBlock_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            RegistrationWindow r = new RegistrationWindow();
+            r.Show();
         }
     }
 }
