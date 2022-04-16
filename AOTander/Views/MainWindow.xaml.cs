@@ -17,6 +17,7 @@ namespace AOTander.Views
         public MainWindow()
         {
             InitializeComponent();
+
             vm = new MainWindowViewModel();
             this.DataContext = vm;
             if (vm.ExitAccountAction == null)
@@ -126,6 +127,26 @@ namespace AOTander.Views
         {
             if (vm.ExitAccountCommand.CanExecute(null))
                 vm.ExitAccountCommand.Execute(null);
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            TanderDatabaseEntities db = new TanderDatabaseEntities();
+            int i = 1;
+            foreach (var item in db.Employees)
+            {
+                if (i < 10)
+                    item.PhotoPath = Environment.CurrentDirectory + "\\Images\\image_00" + i.ToString() + ".jpg";
+                if (i >= 10 && i < 100)
+                    item.PhotoPath = Environment.CurrentDirectory + "\\Images\\image_0" + i.ToString() + ".jpg";
+                if (i >= 100 && i < 1000)
+                    item.PhotoPath = Environment.CurrentDirectory + "\\Images\\image_" + i.ToString() + ".jpg";
+                i++;
+            }
+            db.SaveChanges();
+            MessageBox.Show("Теперь изображения храняться здесь: " + Environment.CurrentDirectory,
+                "База данных успешно обновлена",
+                MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }

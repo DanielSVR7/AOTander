@@ -10,7 +10,7 @@
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Title="АО &quot;Тандер&quot;" 
-        Height="600" Width="1200"
+        Height="600" Width="1250"
         MinHeight="400" MinWidth="900" Closed="Window_Closed"
         WindowStartupLocation="CenterScreen">
 
@@ -38,6 +38,8 @@
             </MenuItem>
             <MenuItem Header="История входов" Click="LoginsMenuItem_Click"/>
             <MenuItem Header="Выйти из аккаунта" Command="{Binding ExitAccountCommand}"/>
+            <Separator/>
+            <MenuItem Header="Починить изображения" HorizontalAlignment="Right" Click="MenuItem_Click"/>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom">
             <TextBlock Text="АО &quot;Тандер&quot;" Margin="2,0"/>
@@ -156,16 +158,16 @@
                               FontSize="14"
                               BorderThickness="0" Grid.Row="1">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Фото" Width="0.4*">
+                            <DataGridTemplateColumn Header="Фото" Width="70">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding PhotoPath}"/>
+                                        <Image Source="{Binding PhotoPath, TargetNullValue={x:Null}}"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <Image Source="{Binding PhotoPath, TargetNullValue={x:Null}}"/>
+                                            <Image  Source="{Binding PhotoPath, TargetNullValue={x:Null}}"/>
                                             <Button Content="Изменить" Command="{Binding DataContext.LoadImageCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                     CommandParameter="{Binding DataContext.SelectedEmployee, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                         </StackPanel>
