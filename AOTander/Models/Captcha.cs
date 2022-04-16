@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AOTander.Models
 {
@@ -39,20 +35,19 @@ namespace AOTander.Models
                          new PointF(Xpos, Ypos));
 
             g.DrawLine(Pens.Black,
-                       new Point(0, rnd.Next(0, Height/2)),
+                       new Point(0, rnd.Next(0, Height / 2)),
                        new Point(Width, rnd.Next(Height / 2, Height)));
             g.DrawLine(Pens.Black,
                        new Point(0, rnd.Next(Height / 2, Height)),
-                       new Point(Width, rnd.Next(0, Height/2)));
+                       new Point(Width, rnd.Next(0, Height / 2)));
             g.DrawLine(Pens.Black,
                        new Point(rnd.Next(0, Width), Height),
-                       new Point(rnd.Next(Xpos - (Width/10), Xpos + (Width / 10)), 0));
+                       new Point(rnd.Next(Xpos - (Width / 10), Xpos + (Width / 10)), 0));
 
             for (int i = 0; i < Width; ++i)
                 for (int j = 0; j < Height; ++j)
                     if (rnd.Next() % 20 == 0)
                         img.SetPixel(i, j, Color.White);
-
             Image = img;
             Text = text;
         }

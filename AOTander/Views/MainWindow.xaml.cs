@@ -2,7 +2,6 @@
 using AOTander.ViewModels;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -119,13 +118,13 @@ namespace AOTander.Views
 
         private void LoginsMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            LoginsWindow w = new LoginsWindow();
+            LoginsWindow w = new LoginsWindow() { Owner = this };
             w.Show();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            if(vm.ExitAccountCommand.CanExecute(null))
+            if (vm.ExitAccountCommand.CanExecute(null))
                 vm.ExitAccountCommand.Execute(null);
         }
     }

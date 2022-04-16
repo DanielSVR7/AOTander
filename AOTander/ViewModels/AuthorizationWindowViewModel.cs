@@ -2,7 +2,6 @@
 using AOTander.Models;
 using AOTander.ViewModels.Base;
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -18,7 +17,7 @@ namespace AOTander.ViewModels
         private int _AttemptsCount = 0;
         private Captcha _Security;
         private bool _IsSecurityVisible;
-        private string  _SecurityText = string.Empty;
+        private string _SecurityText = string.Empty;
         public string EnteredLogin { get => _EnteredLogin; set => Set(ref _EnteredLogin, value); }
         public string EnteredPassword { private get => _EnteredPassword; set => Set(ref _EnteredPassword, value); }
         public string Message { get => _Message; set => Set(ref _Message, value); }
@@ -63,7 +62,7 @@ namespace AOTander.ViewModels
                         Message = string.Empty;
                         return;
                     }
-                }    
+                }
                 AuthorizedUser = (from log in db.Users where EnteredLogin == log.Login && EnteredPassword == log.Password select log).Single();
                 LoginAction?.Invoke();
                 Message = "Добро пожаловать!";

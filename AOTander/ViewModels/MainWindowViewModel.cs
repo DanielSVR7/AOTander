@@ -51,6 +51,7 @@ namespace AOTander.ViewModels
             if (!(p is Employees employee)) return;
             OpenFileDialog openDialog = new OpenFileDialog
             {
+                InitialDirectory = Environment.CurrentDirectory + "\\Images",
                 Filter = "Файлы изображений|*.bmp;*.png;*.jpg"
             };
             if (openDialog.ShowDialog() != true)
@@ -70,7 +71,7 @@ namespace AOTander.ViewModels
             db.Logins.Add(Login);
             db.SaveChanges();
             User = null;
-            ExitAccountAction?.Invoke();   
+            ExitAccountAction?.Invoke();
         }
 
         #endregion

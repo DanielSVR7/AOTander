@@ -23,7 +23,7 @@ namespace AOTander.Views
                 {
                     Users user = (from _user in db.Users where _user.Login == LoginTB.Text select _user).Single();
                     MessageBox.Show
-                        ("Аккаунт существует", 
+                        ("Аккаунт существует",
                         "Аккаунт с данным логином уже существует. Измените логин или авторизуйтесь в существующий аккаунт.",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }

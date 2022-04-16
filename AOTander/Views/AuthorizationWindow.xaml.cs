@@ -1,6 +1,5 @@
 ﻿using AOTander.Models;
 using AOTander.ViewModels;
-using AOTander.Views;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,8 +31,8 @@ namespace AOTander.Views
 
         private void TextBlock_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            RegistrationWindow r = new RegistrationWindow();
-            r.Show();
+            RegistrationWindow r = new RegistrationWindow() { Owner = this };
+            r.ShowDialog();
         }
     }
 }

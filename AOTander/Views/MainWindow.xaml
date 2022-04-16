@@ -12,7 +12,7 @@
         Title="АО &quot;Тандер&quot;" 
         Height="600" Width="1200"
         MinHeight="400" MinWidth="900" Closed="Window_Closed"
-        >
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -165,7 +165,7 @@
                                 <DataGridTemplateColumn.CellEditingTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <Image Source="{Binding PhotoPath}"/>
+                                            <Image Source="{Binding PhotoPath, TargetNullValue={x:Null}}"/>
                                             <Button Content="Изменить" Command="{Binding DataContext.LoadImageCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" 
                                                     CommandParameter="{Binding DataContext.SelectedEmployee, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                         </StackPanel>
